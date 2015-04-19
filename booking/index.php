@@ -65,6 +65,12 @@
 						</span>					
 					</div>
 					<div>
+						<label for="eventremarks">Text</label>
+						<div>
+							<textarea id="eventremarks" name="eventremarks"></textarea>
+						</div>
+					</div>
+					<div>
 						<input type="submit" name="submit" value="boeken">
 					</div>						
 				</form>
