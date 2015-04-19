@@ -26,32 +26,58 @@ label {
 }
 
 #booking {
-	#calendar{
-		max-width : 230px;
-		.fc-time-grid-container.fc-scroller{
-			min-height : 350px;
+	form  {
+		>div {
+			margin : 0 0 5px 0;
+			* {
+				vertical-align : middle;
+				
+			}
+			label {
+				font-size : 16px;
+			}
 		}
-		.fc-day-grid {
-			display: none;
+		#calendar{
+			max-width : 250px;
+			.fc-time-grid-container.fc-scroller{
+				min-height : 350px;
+			}
+			.fc-day-grid {
+				display: none;
+			}
+			.event-already-booked{
+				background-color : #dd6666 !important;
+			}
+			.event-too-small{
+				background-color : #999 !important;
+			}
 		}
-		.event-already-booked{
-			background-color : #dd6666 !important;
+		input[name=eventdate]{
+			cursor : pointer;
 		}
-		.event-too-small{
-			background-color : #999 !important;
+		input[type=text], select {
+			width : 150px;
+			border : 1px #ccc solid;
+			height : 32px;
+			border-radius : 5px;
+			padding-left : 5px;
+			font-size : 16px;
 		}
-	}
-	input[type=text], select {
-		width : 100px;
-	}
-	#personen {
-		input[type=radio]+label {
-			width : 10px;
-			margin-right : 10px;
+		input[name=submit], textarea{
+			font-size : 20px;
+			width : 250px;
 		}
-	}
-	input[name=submit], textarea{
-		font-size : 20px;
-		width : 235px;
+		#nrpersons-label{
+			width : 200px;
+		}
+		#nrpersons {
+			label {
+				width : 51px;
+				.ui-selectmenu-text {
+					padding-top : 0px;
+					padding-bottom: 0px;
+				}
+			}
+		}
 	}
 }

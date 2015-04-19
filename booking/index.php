@@ -36,6 +36,7 @@
 	<body>
 		<div class="frame">
 			<div id="booking">
+				<h1>Dobber op The Boei</h1>
 				<form>
 					<div>
 						<label for="category">Arrangement:</label>
@@ -47,35 +48,35 @@
 						<input type="text" id="eventdate" name="eventdate" readonly="readonly">
 					</div>
 					<div>
-						<label for="eventstart">Aanvang:</label>
+						<label for="eventstart">Afvaart:</label>
 						<input type="text" id="eventstart" name="eventstart" readonly="readonly" disabled>					
 					</div>
 					<div>
-						<label for="eventend">Einde:</label>
+						<label for="eventend">Terug:</label>
 						<input type="text" id="eventend" name="eventend" readonly="readonly" disabled>					
 					</div>
 					<div>
-						<label for="personen">Personen:</label>
-						<span id="personen">
-							<input type="radio" name="personen" value="4" checked><label>4</label>
-							<input type="radio" name="personen" value="5" ><label>5</label>
-							<input type="radio" name="personen" value="6" ><label>6</label>
-							<input type="radio" name="personen" value="7" ><label>7</label>
-							<input type="radio" name="personen" value="8" ><label>8</label>
-						</span>					
+						<label id="nrpersons-label">Aantal personen:</label>
+						<div id="nrpersons">
+							<input type="radio" id="nrpersons4" name="nrpersons" value="4" checked><label for="nrpersons4">4</label>
+							<input type="radio" id="nrpersons5" name="nrpersons" value="5" ><label for="nrpersons5">5</label>
+							<input type="radio" id="nrpersons6" name="nrpersons" value="6"><label for="nrpersons6">6</label>
+							<input type="radio" id="nrpersons7" name="nrpersons" value="7"><label for="nrpersons7">7</label>
+							<input type="radio" id="nrpersons8" name="nrpersons" value="8"><label for="nrpersons8">8</label>
+						</div>
 					</div>
 					<div>
-						<label for="eventremarks">Text</label>
+						<label for="eventremarks">Opmerkingen</label>
 						<div>
 							<textarea id="eventremarks" name="eventremarks"></textarea>
 						</div>
 					</div>
+					<div id='calendar'></div>
 					<div>
-						<input type="submit" name="submit" value="boeken">
-					</div>						
+						<input type="submit" name="submit" value="naar boeken">
+					</div>	
 				</form>
-				<div id='calendar'></div>
 			</div>
 		</div>
-</body>
+	</body>
 </html>

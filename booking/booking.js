@@ -53,7 +53,7 @@
 		
 	function gotCategories(data){
 		categories = $.parseJSON(data);
-		var options = '<option value="0" title="Eerst arrangement kiezen...">te kiezen...</option>';
+		var options = '<option value="0" selected="selected" title="Eerst arrangement kiezen...">te kiezen...</option>';
 		for (c in categories){
 			options +=
 			'<option value="'+categories[c].id+'" title="'+categories[c].description+'">'+categories[c].title+'</option>';
@@ -120,12 +120,6 @@
 		var resultDayNonAvailabilities = [];
 		var idx = getAvailabilityIndexForDay(daydate);
 		if (idx > -1){
-			// add first boundary events
-				var start = dateStringNoZone(moment(addMinutes(new Date(availabilities[idx].start),-30)).format());
-
-				//resultDayNonAvailabilities[resultDayNonAvailabilities.length] = 
-				//	createNonAvailability(start, availabilities[idx].start, 'reeds geboekt', 'event-already-booked');				
-			
 				for (var e in events){
 					if (dayString(events[e].start) == dayString(availabilities[idx].start)) {
 						start = events[e].start;
@@ -249,7 +243,6 @@
 	function updateBookingStartEnd(event){
 		$('#eventstart').val(moment(event.start).format('HH:mm'));
 		$('#eventend').val(moment(event.end).format('HH:mm'));
-		//$('#calendar').fullCalendar('updateEvent', bookEvent);
 	}
 	
 	bookEvents = [{start: '2000-05-08T14:00:00', end: '2000-05-08T18:00:00', title: 'book this', editable: true, overlap: false, id: 'bookevent'}];
@@ -261,14 +254,12 @@
 		bookEvent.start = room.start;
 		bookEvent.end = dateStringNoZone(moment(addMinutes(new Date(room.start),bookEvent.category.min_duration)).format());
 		bookEvent.title = 'Uw boeking: '+bookEvent.category.title + '?';
-		updateBookingStartEnd(bookEvent);
 		$('#calendar').fullCalendar('updateEvent', bookEvent);
 	}
 	
 	function bookToMaxDuration(){
 		var bookEvent = $('#calendar').fullCalendar('clientEvents', 'bookevent')[0];
 		bookEvent.end = moment(addMinutes(new Date(bookEvent.start),bookEvent.category.max_duration)).utc().format();
-		updateBookingStartEnd(bookEvent);
 		$('#calendar').fullCalendar('updateEvent', bookEvent);
 	}
 	
@@ -276,7 +267,6 @@
 		// expand
 		var bookEvent = $('#calendar').fullCalendar('clientEvents', 'bookevent')[0];
 		bookEvent.end = moment(addMinutes(new Date(bookEvent.start),bookEvent.category.min_duration)).utc().format();
-		updateBookingStartEnd(bookEvent);
 		$('#calendar').fullCalendar('updateEvent', bookEvent);		
 	}
 	
@@ -285,20 +275,16 @@
 		var duration = calcMinutesBetween(new Date(event.start.format()), new Date(event.end.format()));
 		var correctionTooLarge = duration - event.category.max_duration;
 		if (correctionTooLarge > 0){
-			setTimeout(bookToMaxDuration,50);
+			setTimeout(bookToMaxDuration,100);
 			return;
 		}
 		var correctionTooSmall = event.category.min_duration - duration;
 		if (correctionTooSmall > 0){
-			setTimeout(bookToMinDuration,50);
+			setTimeout(bookToMinDuration,100);
 			return;
 		}
-		updateBookingStartEnd(event);
+//		updateBookingStartEnd(event);
 	}
-	
-		function bookDrop(event,dayDelta,minuteDelta,allDay,revertFunc) { 
-			updateBookingStartEnd(event);
-		}
 	
 	timePickerOptions = {
 			header: false,
@@ -313,8 +299,9 @@
 			selectHelper: false,
 			eventLimit: true,
 			eventResize : bookResize,
-			eventDrop : bookDrop,
+			//eventDrop : bookDrop,
 			eventBackgroundColor : '#66dd66',
+			eventAfterRender : function( event, element, view ) { updateBookingStartEnd(event);},
 			dayClick: function(date, jsEvent, view){console.log(date);},
 			eventTextColor : 'black',
 			eventSources : [
@@ -344,10 +331,12 @@
 		getAvailabilities();
 		getCategories();
 		getEvents();
-		//setDayCalendar(new Date());
+		$('#booking input[type=text]').val('');
+		$('#nrpersons4').prop('checked',true);
 		$('#eventdate').prop('disabled',true);
 		$('#eventtime').prop('disabled',true);
 		$('#eventduration').prop('disabled',true);
+		$( "#nrpersons" ).buttonset();
 		$('#category').change(
 			function(){
 				var categoryId = parseInt($(this).val());
