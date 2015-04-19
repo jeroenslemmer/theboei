@@ -1,0 +1,57 @@
+* {
+	box-sizing : border-box;
+}
+
+body {
+	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+	font-size: 14px;
+}
+
+.frame {
+	width: 500px;
+	margin: 0 auto; 	
+	background-color: white;
+}
+
+label {
+	display: inline-block;
+	width: 100px;
+}
+
+.date-bookable a{
+	background-color : #aaffaa !important;
+}
+.date-full a{
+	background-color : #ffaaaa !important;
+}
+
+#booking {
+	#calendar{
+		max-width : 230px;
+		.fc-time-grid-container.fc-scroller{
+			min-height : 350px;
+		}
+		.fc-day-grid {
+			display: none;
+		}
+		.event-already-booked{
+			background-color : #dd6666 !important;
+		}
+		.event-too-small{
+			background-color : #999 !important;
+		}
+	}
+	input[type=text], select {
+		width : 100px;
+	}
+	#personen {
+		input[type=radio]+label {
+			width : 10px;
+			margin-right : 10px;
+		}
+	}
+	input[name=submit]{
+		font-size : 20px;
+		width : 235px;
+	}
+}
