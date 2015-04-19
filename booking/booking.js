@@ -2,6 +2,7 @@
 	var events = false;
 	var categories= false;
 	var dayNonAvailabilities = [];
+	var dayLimitAvailabilities = [];
 	
 	function setDatePicker() {
 		$( "#eventdate" ).datepicker({
@@ -101,18 +102,34 @@
 		return {start: start, end: end, title : title, editable: false, className: className};
 	}
 	
+	function getDayLimitAvailabilities(daydate){
+		var resultDayLimitAvailabilities = [];
+		var idx = getAvailabilityIndexForDay(daydate);
+		var start = dateStringNoZone(moment(addMinutes(new Date(availabilities[idx].start),-1)).format());
+		resultDayLimitAvailabilities[resultDayLimitAvailabilities.length] = 
+			createNonAvailability(start, availabilities[idx].start, 'limit','');
+		var end = dateStringNoZone(moment(addMinutes(new Date(availabilities[idx].end),1)).format());
+		resultDayLimitAvailabilities[resultDayLimitAvailabilities.length] = 
+			createNonAvailability(availabilities[idx].end, end, 'limit','');	
+		return resultDayLimitAvailabilities;
+	}
+	
 	function getDayNonAvailabilities(daydate, categoryId){
 		var newDayNonAvailability;
 		var category = categories[getCategoryIndexForId(categoryId)];
 		var resultDayNonAvailabilities = [];
 		var idx = getAvailabilityIndexForDay(daydate);
 		if (idx > -1){
-			
+			// add first boundary events
+				var start = dateStringNoZone(moment(addMinutes(new Date(availabilities[idx].start),-30)).format());
+
+				//resultDayNonAvailabilities[resultDayNonAvailabilities.length] = 
+				//	createNonAvailability(start, availabilities[idx].start, 'reeds geboekt', 'event-already-booked');				
 			
 				for (var e in events){
 					if (dayString(events[e].start) == dayString(availabilities[idx].start)) {
-						var start = events[e].start;
-						if (start> availabilities[idx].start)
+						start = events[e].start;
+						if (start > availabilities[idx].start)
 							start = dateStringNoZone(moment(addMinutes(new Date(start),-category.cleanup)).format());
 						resultDayNonAvailabilities[resultDayNonAvailabilities.length] = 
 							createNonAvailability(start, events[e].end, 'reeds geboekt', 'event-already-booked');
@@ -302,6 +319,7 @@
 			eventTextColor : 'black',
 			eventSources : [
 				function(start, end, timezone, callback){ callback(dayNonAvailabilities);},	
+				function(start, end, timezone, callback){ callback(dayLimitAvailabilities);},	
 				function(start, end, timezone, callback){ callback(bookEvents);},	
 			]	
 	}
@@ -351,6 +369,7 @@
 					if (categoryId != 0) {
 						var day = inputDateToDate(eventdate);
 						dayNonAvailabilities = getDayNonAvailabilities(day, categoryId);
+						dayLimitAvailabilities = getDayLimitAvailabilities(day);
 						setTimePicker(day);
 					} else {
 						$('#eventtime').prop('disabled',true);
