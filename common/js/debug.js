@@ -196,6 +196,22 @@ function my_dump (var_value, var_name)
     }
 }
 
+peekoptions = {alert: true, max : 1};
+peeked = [];
+function peek(key, value){
+	if (typeof peeked[key] == 'undefined') 
+	{
+		peeked[key] = 1;
+	}
+	if (peeked[key]>peekoptions.max) return;
+	peeked[key]++;
+	if (peekoptions.alert)
+		alert(key+':'+value.toString());
+	else
+		console.log(key+':'+value.toString());
+}
+
+
 function dump(s){
 	my_dump(s);
 }

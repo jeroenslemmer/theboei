@@ -4,16 +4,7 @@
 	var dayNonAvailabilities = [];
 	var dayLimitAvailabilities = [];
 	
-	// timezone is depending on time of year
-	function getTimezoneSuffix(){
-		var now = moment().format();
-		return now.substr(now.indexOf('+'),6);
-	}
-	var timezoneSuffix = getTimezoneSuffix();
-	var dateNoTimeSuffix = 'T00:00:00'+timezoneSuffix;
-	
 	peekoptions.alert = true;
-	
 	// set up datepicker;
 	// determine  per day if available for bookings;
 	// prevent looking in the past
@@ -177,6 +168,9 @@
 	}
 	
 	function matchedDay(startdate, enddate, daydate){
+		peek('day',daydate);
+		peek('start',startdate);
+		peek('startdate',dayDate(startdate));
 		return (daydate >= dayDate(startdate) && daydate <= dayDate(enddate));
 	}
 	
@@ -261,7 +255,7 @@
 		$('#eventstart').val(moment(event.start).format('HH:mm'));
 		$('#eventend').val(moment(event.end).format('HH:mm'));
 	}
-	bookEvents = [{start: '2000-05-08T14:00:00', end: '2000-05-08T18:00:00', title: 'book this', editable: true, overlap: false, id: 'bookevent'}];
+	
 	function setBookEvent(room){
 		console.log('setBookEvent');
 		var bookEvent = $('#calendar').fullCalendar('clientEvents', 'bookevent')[0];

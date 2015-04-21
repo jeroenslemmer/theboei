@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Boei boeken</title>
+		<title>Book a Boot</title>
 		<link rel="apple-touch-icon" sizes="57x57" href="../common/css/images/icon/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="../common/css/images/icon/apple-icon-60x60.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="../common/css/images/icon/apple-icon-72x72.png">
@@ -21,27 +21,46 @@
 		<meta name="msapplication-TileImage" content="../common/css/images/icon/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 
-		<link href="../common/css/fullcalendar.css" rel="stylesheet" />
-		<link href="../common/css/fullcalendar.print.css" rel="stylesheet" media="print" />
 		<script src="../common/js/debug.js"></script>	
 		<link href="../common/css/jquery-ui.css" rel="stylesheet" />
 		<link href="../common/css/style.css" rel="stylesheet" />
 		<script src="../common/js/jquery.js"></script>
 		<script src="../common/js/jquery-ui.js"></script>
 		<script src="../common/js/moment.js"></script>
-		<script src="../common/js/fullcalendar.js"></script>
 		<script src="../common/js/lang/nl.js"></script>	
-		<script src="booking.js"></script>
 	</head>
 	<body>
 		<div class="frame">
 			<div id="booking">
-				<h1>Dobber op The Boei</h1>
+				<h1>Boeking</h1>
 				<form>
 					<div>
-						<label for="category">Arrangement:</label>
-						<select id="category" name="category">
-						</select>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
+					</div>
+					<div>
+						<label for="prename">Voornaam:</label>
+						<input type="text" id="prename" name="prename" readonly="readonly">
 					</div>
 					<div >
 						<label for="eventdate">Datum:</label>
