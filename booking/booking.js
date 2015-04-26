@@ -9,6 +9,7 @@
 		var now = moment().format();
 		return now.substr(now.indexOf('+'),6);
 	}
+	
 	var timezoneSuffix = getTimezoneSuffix();
 	var dateNoTimeSuffix = 'T00:00:00'+timezoneSuffix;
 	
@@ -34,6 +35,10 @@
 
 	function populateEvents(data){
 		events = $.parseJSON(data);
+		for (var e in events){
+			events[e].start +=timezoneSuffix;
+			events[e].end +=timezoneSuffix;
+		}
 	}
 	
 	function getEvents(){
@@ -47,6 +52,8 @@
 		availabilities = $.parseJSON(data);
 		for (c in availabilities){
 			availabilities[c].bookable = true;
+			availabilities[c].start +=timezoneSuffix;
+			availabilities[c].end +=timezoneSuffix;
 		}
 	}
 	
@@ -177,7 +184,7 @@
 	}
 	
 	function matchedDay(startdate, enddate, daydate){
-		return (daydate >= dayDate(startdate) && daydate <= dayDate(enddate));
+		return moment(daydate).format().substr(0,10) == startdate.substr(0,10);
 	}
 	
 	function isAvailable(d){
@@ -261,7 +268,7 @@
 		$('#eventstart').val(moment(event.start).format('HH:mm'));
 		$('#eventend').val(moment(event.end).format('HH:mm'));
 	}
-	bookEvents = [{start: '2000-05-08T14:00:00', end: '2000-05-08T18:00:00', title: 'book this', editable: true, overlap: false, id: 'bookevent'}];
+	bookEvents = [{start: '2000-05-08T14:00:00'+timezoneSuffix, end: '2000-05-08T18:00:00'+timezoneSuffix, title: 'book this', editable: true, overlap: false, id: 'bookevent'}];
 	function setBookEvent(room){
 		console.log('setBookEvent');
 		var bookEvent = $('#calendar').fullCalendar('clientEvents', 'bookevent')[0];
@@ -314,7 +321,13 @@
 			eventLimit: true,
 			eventResize : bookResize,
 			eventBackgroundColor : '#66dd66',
-			eventAfterRender : function( event, element, view ) { updateBookingStartEnd(event);},
+			eventRender: function(event, element) {
+            $(element).addTouch();
+        },
+			eventAfterRender : function( event, element, view ) {
+				updateBookingStartEnd(event);
+				//if (event.editable) element.draggable();
+			},
 			dayClick: function(date, jsEvent, view){console.log(date);},
 			eventTextColor : 'black',
 			eventSources : [
@@ -330,12 +343,13 @@
 		} catch(e) {
 			console.log('did not exist');
 		}
-		$('.fc-time-grid-event').resize(function(){console.log('resize');})
+		//$('.fc-time-grid-event').resize(function(){console.log('resize');})
 		var idx = getAvailabilityIndexForDay(day);
 		timePickerOptions.minTime = availabilities[idx].start;
 		timePickerOptions.maxTime = availabilities[idx].end;
 		timePickerOptions.defaultDate = day;
 		$('#calendar').fullCalendar(timePickerOptions);
+		//$('.fc-view tbody').draggable();
 		var room = getFirstRoomOnDay(day);
 		setBookEvent(room);
 	}

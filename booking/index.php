@@ -28,8 +28,10 @@
 		<link href="../common/css/style.css" rel="stylesheet" />
 		<script src="../common/js/jquery.js"></script>
 		<script src="../common/js/jquery-ui.js"></script>
+		<script src="../common/js/jquery.ui.touch-punch.js"></script>
 		<script src="../common/js/moment.js"></script>
 		<script src="../common/js/fullcalendar.js"></script>
+		
 		<script src="../common/js/lang/nl.js"></script>	
 		<script src="booking.js"></script>
 	</head>
